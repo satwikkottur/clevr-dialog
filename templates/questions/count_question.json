@@ -1,0 +1,165 @@
+[
+{
+    "name":"Count-All Objects",
+    "text": [
+        "How many things are in the image?",
+        "What is the count of all the things [in the image]?",
+        "How many things in total [in the image]?",
+        "What is the number of things [in the image]?"
+    ],
+    "type":"count",
+    "label":"count-all",
+    "inputs":0
+},
+{
+    "name":"Count-Other objects",
+    "text": [
+        "How many other things are in the image?",
+        "What is the count of other things [in the image]?",
+        "What is the number of other things [in the image]?"
+    ],
+    "constraints":[],
+    "type":"count",
+    "label":"count-other",
+    "inputs":0
+},
+{
+    "name":"Count-All Group Immediate",
+    "text": [
+        "How many [things in the group]?",
+        "What number [of things in the group]?",
+        "How many of them?",
+        "What number of them?",
+        "How many such things [in the group]?"
+    ],
+    "constraints":[],
+    "type":"count-all-group",
+    "label":"count-all-group",
+    "inputs":0
+},
+{
+    "name":"Count-Attribute",
+    "text": [
+        "If present, how many <Z> <C> <M> <S> are in the image?",
+        "What is the count of <Z> <C> <M> <S> [in the image], if present?",
+        "What is the number of <Z> <C> <M> <S> [in the image], if present?",
+        "What number of <Z> <C> <M> <S> are present [in the image]?"
+    ],
+    "constraints":[],
+    "type":"count-attribute",
+    "label":"count-attribute",
+    "inputs":1
+},
+{
+    "name":"Count-Attribute Group",
+    "text": [
+        "How many <Z> <C> <M> <S> among them?",
+        "How many <Z> <C> <M> <S> in the group?",
+        "How many of them are <Z> <C> <M> <S>?",
+        "What is the count of <Z> <C> <M> <S> among them?",
+        "What is the count of <Z> <C> <M> <S> in this group?",
+        "What is the number of <Z> <C> <M> <S> among them?",
+        "What is the number of <Z> <C> <M> <S> in this group?"
+    ],
+    "constraints":[],
+    "type":"count-attribute-group",
+    "label":"count-attribute-group",
+    "inputs":1
+},
+{
+    "name":"Count Relation Object Immediate",
+    "text": [
+        "How many things [are present] to its <P> [in the image]?",
+        "How many things does it have to its <P> [in the image]?",
+        "What number of things [are present] to its <P> [in the image]?",
+        "What is the count of things to its <P> [in the image]?"
+    ],
+    "type":"count-obj-rel",
+    "label":"count-obj-rel-imm",
+    "inputs":1,
+    "references": [
+        "How many things [are present] to {F{its}} <P> [in the image]?",
+        "How many things does {F{it}} have to {F{its}} <P> [in the image]?",
+        "What number of things [are present] to {F{its}} <P> [in the image]?",
+        "What is the count of things to {F{its}} <P> [in the image]?"
+    ]
+},
+{
+    "name":"Count Relation Object Immediate Pair",
+    "text": [
+        "How about to its <P>?",
+        "What about to its <P>?",
+        "And to its <P>?"
+    ],
+    "type":"count-obj-rel",
+    "label":"count-obj-rel-imm2",
+    "inputs":1,
+    "references": [
+        "How about to {F{its}} <P>?",
+        "What about to {F{its}} <P>?",
+        "And to {F{its}} <P>?"
+    ]
+},
+{
+    "name":"Count Relation Object Earlier",
+    "text": [
+        "How many things [are present] <R> the earlier <Z1> <C1> <M1> <S1>?",
+        "How many things does the earlier <Z1> <C1> <M1> <S1> have to its <P>?",
+        "What number of things [are present] <R> the earlier <Z1> <C1> <M1> <S1>?",
+        "What is the count of things the earlier <Z1> <C1> <M1> <S1> has to its <P>?"
+    ],
+    "type":"count-obj-rel",
+    "label":"count-obj-rel-early",
+    "inputs":2,
+    "references": [
+        "How many things [are present] <R> {F{the earlier <Z1> <C1> <M1> <S1>}}?",
+        "How many things does {F{the earlier <Z1> <C1> <M1> <S1>}} have to {F{its}} <P>?",
+        "What number of things [are present] <R> {F{the earlier <Z1> <C1> <M1> <S1>}}?",
+        "What is the count of things {F{the earlier <Z1> <C1> <M1> <S1>}} has to {F{its}} <P>?"
+    ]
+},
+{
+    "name":"Count Exclude Attribute Immediate",
+    "text": [
+        "How many other things share its <A> [in the image]?",
+        "How many other things [in the image] share its <A>?",
+        "What number of other things share its <A> [in the image]?",
+        "How many other things have its <A> [in the image]?",
+        "How many other things [in the image] have its <A>?",
+        "What is the count of other things that share its <A> [in the image]?",
+        "What is the count of other things [in the image] that share its <A>?"
+    ],
+    "type":"count-obj-exclude",
+    "label":"count-obj-exclude-imm",
+    "inputs":1,
+    "references": [
+        "How many other things share {F{its}} <A> [in the image]?",
+        "How many other things [in the image] share {F{its}} <A>?",
+        "What number of other things share {F{its}} <A> [in the image]?",
+        "How many other things have {F{its}} <A> [in the image]?",
+        "How many other things [in the image] have {F{its}} <A>?",
+        "What is the count of other things that share {F{its}} <A> [in the image]?",
+        "What is the count of other things [in the image] that share {F{its}} <A>?"
+    ]
+},
+{
+    "name":"Count Relation Object Earlier",
+    "text": [
+        "How many other things [in the image] share similar <A> with the earlier <Z1> <C1> <M1> <S1>?",
+        "How many other things [in the image] are of same <A> as the earlier <Z1> <C1> <M1> <S1>?",
+        "How many other things [in the image] have the same <A> as the earlier <Z1> <C1> <M1> <S1>?",
+        "What number of other things [in the image] share similar <A> with the earlier <Z1> <C1> <M1> <S1>?",
+        "What number of other things [in the image] are of same <A> with the earlier <Z1> <C1> <M1> <S1>?"
+    ],
+    "type":"count-obj-exclude",
+    "label":"count-obj-exclude-early",
+    "inputs":2,
+    "references": [
+        "How many other things [in the image] share similar <A> with {F{the earlier <Z1> <C1> <M1> <S1>}}?",
+        "How many other things [in the image] are of same <A> as {F{the earlier <Z1> <C1> <M1> <S1>}}?",
+        "How many other things [in the image] have the same <A> as {F{the earlier <Z1> <C1> <M1> <S1>}}?",
+        "What number of other things [in the image] share similar <A> with {F{the earlier <Z1> <C1> <M1> <S1>}}?",
+        "What number of other things [in the image] are of same <A> with {F{the earlier <Z1> <C1> <M1> <S1>}}?"
+    ]
+}
+]

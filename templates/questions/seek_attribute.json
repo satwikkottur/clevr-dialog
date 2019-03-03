@@ -1,0 +1,95 @@
+[
+{
+    "name":"Seek Attribute Immediate",
+    "text": [
+        "What is its <A>?",
+        "What <A> is it?",
+        "What about its <A>?",
+        "What is the <A> of this thing?"
+    ],
+    "constraints":[{"class":"seek-attr", "args":[]}],
+    "type":"seek-attr",
+    "label":"seek-attr-imm",
+    "inputs":1,
+    "references": [
+        "What is {{its}} <A>?",
+        "What <A> is {{it}}?",
+        "What about {{its}} <A>?",
+        "What is the <A> of {{this thing}}?"
+    ]
+},
+{
+    "name":"Seek Attribute Immediate Pair",
+    "text": [
+        "What about <A>?",
+        "And <A>?",
+        "How about <A>?"
+    ],
+    "constraints":[{"class":"seek-attr", "args":[]}],
+    "type":"seek-attr",
+    "label":"seek-attr-imm2",
+    "inputs":1
+},
+{
+    "name":"Seek Attribute Earlier",
+    "text": [
+        "What is the <A> of the earlier <Z1> <C1> <M1> <S1>?",
+        "What <A> is the earlier <Z1> <C1> <M1> <S1>?"
+    ],
+    "constraints":[{"class":"seek-attr", "args":[]}],
+    "type":"seek-attr",
+    "label":"seek-attr-early",
+    "inputs":2,
+    "references": [
+        "What is the <A> of {{the earlier <Z1> <C1> <M1> <S1>}}?",
+        "What <A> is {{the earlier <Z1> <C1> <M1> <S1>}}?"
+    ]
+},
+{
+    "name":"Seek Similar Attribute Early Object",
+    "text": [
+        "How about the earlier <Z1> <C1> <M1> <S1>?",
+        "What about the earlier <Z1> <C1> <M1> <S1>?",
+        "And that of the earlier <Z1> <C1> <M1> <S1>?"
+    ],
+    "constraints":[{"class":"seek-attr-sim", "args":[]}],
+    "type":"seek-attr",
+    "label":"seek-attr-sim-early",
+    "inputs":2,
+    "references": [
+        "How about {{the earlier <Z1> <C1> <M1> <S1>}}?",
+        "What about {{the earlier <Z1> <C1> <M1> <S1>}}?",
+        "And that of {{the earlier <Z1> <C1> <M1> <S1>}}?"
+    ]
+},
+{
+    "name":"Seek Attribute Relation Immediate",
+    "text": [
+        "If there is a thing <R> it, what is its <A>?",
+        "If there is a thing <R> it, what <A> is it?"
+    ],
+    "constraints":[{"class":"seek-attr", "args":[]}],
+    "type":"seek-attr-rel",
+    "label":"seek-attr-rel-imm",
+    "inputs":1,
+    "references": [
+        "If there is a thing <R> {F{it}}, what is {{its}} <A>?",
+        "If there is a thing <R> {F{it}}, what <A> is {{it}}?"
+    ]
+},
+{
+    "name":"Seek Attribute Relation Earlier",
+    "text": [
+        "If there is a thing <R> the earlier <Z1> <C1> <M1> <S1>, what is its <A>?",
+        "If there is a thing <R> the earlier <Z1> <C1> <M1> <S1>, what <A> is it?"
+    ],
+    "constraints":[{"class":"seek-attr", "args":[]}],
+    "type":"seek-attr-rel",
+    "label":"seek-attr-rel-early",
+    "inputs":2,
+    "references": [
+        "If there is a thing <R> {F{the earlier <Z1> <C1> <M1> <S1>}}, what is {{its}} <A>?",
+        "If there is a thing <R> {F{the earlier <Z1> <C1> <M1> <S1>}}, what <A> is {{it}}?"
+    ]
+}
+]

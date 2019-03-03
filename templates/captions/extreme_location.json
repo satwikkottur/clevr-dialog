@@ -1,0 +1,102 @@
+[
+{
+    "name":"Single Object - Extreme Right",
+    "text": [
+        "There is a <Z> <C> <M> <S> sitting at the extreme right [of the image].",
+        "A <Z> <C> <M> <S> is at the extreme right [of the image].",
+        "There is a <Z> <C> <M> <S> to the right of all things [in the image].",
+        "A <Z> <C> <M> <S> is to the right of all things [in the image].",
+        "The rightmost thing [in the image] is a <Z> <C> <M> <S>."
+    ],
+    "constraints":[{"class":"abs_location", "args":["right"]}],
+    "type":"extreme-loc",
+    "label":"extreme-right",
+    "references": [
+        "There is a {{<Z> <C> <M> <S>}} sitting at the extreme right [of the image].",
+        "A {{<Z> <C> <M> <S>}} is at the extreme right [of the image].",
+        "There is a {{<Z> <C> <M> <S>}} to the right of all things [in the image].",
+        "A {{<Z> <C> <M> <S>}} is to the right of all things [in the image].",
+        "The rightmost thing [in the image] is a {{<Z> <C> <M> <S>}}."
+    ]
+},
+{
+    "name":"Single Object - Extreme Left",
+    "text": [
+        "There is a <Z> <C> <M> <S> sitting at the extreme left [of the image].",
+        "A <Z> <C> <M> <S> is at the extreme left [of the image].",
+        "There is a <Z> <C> <M> <S> to the left of all things [in the image].",
+        "A <Z> <C> <M> <S> is to the left of all things [in the image].",
+        "The leftmost thing [in the image] is a <Z> <C> <M> <S>."
+    ],
+    "constraints":[{"class":"abs_location", "args":["left"]}],
+    "type":"extreme-loc",
+    "label":"extreme-left",
+    "references": [
+        "There is a {{<Z> <C> <M> <S>}} sitting at the extreme left [of the image].",
+        "A {{<Z> <C> <M> <S>}} is at the extreme left [of the image].",
+        "There is a {{<Z> <C> <M> <S>}} to the left of all things [in the image].",
+        "A {{<Z> <C> <M> <S>}} is to the left of all things [in the image].",
+        "The leftmost thing [in the image] is a {{<Z> <C> <M> <S>}}."
+    ]
+},
+{
+    "name":"Single Object - Extreme Backward",
+    "text": [
+        "There is a <Z> <C> <M> <S> sitting at the extreme back [of the image].",
+        "A <Z> <C> <M> <S> is at the extreme back [of the image].",
+        "There is a <Z> <C> <M> <S> to the back of all things [in the image].",
+        "A <Z> <C> <M> <S> is to the back of all things [in the image].",
+        "The rearmost thing [in the image] is a <Z> <C> <M> <S>."
+    ],
+    "constraints":[{"class":"abs_location", "args":["behind"]}],
+    "type":"extreme-loc",
+    "label":"extreme-behind",
+    "references": [
+        "There is a {{<Z> <C> <M> <S>}} sitting at the extreme back [of the image].",
+        "A {{<Z> <C> <M> <S>}} is at the extreme back [of the image].",
+        "There is a {{<Z> <C> <M> <S>}} to the back of all things [in the image].",
+        "A {{<Z> <C> <M> <S>}} is to the back of all things [in the image].",
+        "The rearmost thing [in the image] is a {{<Z> <C> <M> <S>}}."
+    ]
+},
+{
+    "name":"Single Object - Extreme Forward",
+    "text": [
+        "There is a <Z> <C> <M> <S> sitting at the extreme front [of the image].",
+        "A <Z> <C> <M> <S> is at the extreme front [of the image].",
+        "There is a <Z> <C> <M> <S> to the front of all things [in the image].",
+        "A <Z> <C> <M> <S> is to the front of all things [in the image].",
+        "The foremost thing [in the image] is a <Z> <C> <M> <S>."
+    ],
+    "constraints":[{"class":"abs_location", "args":["front"]}],
+    "type":"extreme-loc",
+    "label":"extreme-front",
+    "references": [
+        "There is a {{<Z> <C> <M> <S>}} sitting at the extreme front [of the image].",
+        "A {{<Z> <C> <M> <S>}} is at the extreme front [of the image].",
+        "There is a {{<Z> <C> <M> <S>}} to the front of all things [in the image].",
+        "A {{<Z> <C> <M> <S>}} is to the front of all things [in the image].",
+        "The foremost thing [in the image] is a {{<Z> <C> <M> <S>}}."
+    ]
+},
+{
+    "name":"Single Object - Center",
+    "text": [
+        "There is a <Z> <C> <M> <S> sitting in the center [of the image].",
+        "A <Z> <C> <M> <S> is in the center [of the image].",
+        "There is a <Z> <C> <M> <S> at the center of all things [in the image].",
+        "A <Z> <C> <M> <S> is at the center of all things [in the image].",
+        "The midmost thing [in the image] is a <Z> <C> <M> <S>."
+    ],
+    "constraints":[{"class":"abs_location", "args":["center"]}],
+    "type":"extreme-loc",
+    "label":"extreme-center",
+    "references": [
+        "There is a {{<Z> <C> <M> <S>}} sitting in the center [of the image].",
+        "A {{<Z> <C> <M> <S>}} is in the center [of the image].",
+        "There is a {{<Z> <C> <M> <S>}} at the center of all things [in the image].",
+        "A {{<Z> <C> <M> <S>}} is at the center of all things [in the image].",
+        "The midmost thing [in the image] is a {{<Z> <C> <M> <S>}}."
+    ]
+}
+]

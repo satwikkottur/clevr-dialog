@@ -1,0 +1,36 @@
+[
+{
+    "name":"Multiple Objects - Attributes - No X",
+    "text":[
+        "There are several <Z> <C> <M> <S> [in the image].",
+        "The image has several <Z> <C> <M> <S>.",
+        "Several <Z> <C> <M> <S> are present [in the image].",
+        "A number of <Z> <C> <M> <S> are present [in the image]."
+    ],
+    "constraints":[{"class":"count_attr", "args":[]}],
+    "type":"count-att",
+    "label":"count-att-no",
+    "inputs":1,
+    "references":[
+        "There are several {{<Z> <C> <M> <S>}} [in the image].",
+        "The image has several {{<Z> <C> <M> <S>}}.",
+        "Several {{<Z> <C> <M> <S>}} are present [in the image].",
+        "A number of {{<Z> <C> <M> <S>}} are present [in the image]."
+    ]
+},
+{
+    "name":"Multiple Objects - Attributes",
+    "text":[
+        "There are <X> <Z> <C> <M> <S> [in the image].",
+        "The image has <X> <Z> <C> <M> <S>."
+    ],
+    "constraints":[{"class":"count_attr", "args":[]}],
+    "type":"count-att",
+    "label":"count-att",
+    "inputs":1,
+    "references":[
+        "There are {{<X> <Z> <C> <M> <S>}} [in the image].",
+        "The image has {{<X> <Z> <C> <M> <S>}}."
+    ]
+}
+]

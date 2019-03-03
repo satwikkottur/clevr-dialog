@@ -1,0 +1,21 @@
+[
+{
+    "name":"Two objects with a relation",
+    "text": [
+        "There is a <Z> <C> <M> <S> <R> a <Z1> <C1> <M1> <S1> [in the image].",
+        "The image has a <Z> <C> <M> <S> <R> a <Z1> <C1> <M1> <S1>.",
+        "A <Z> <C> <M> <S> is present <R> a <Z1> <C1> <M1> <S1> [in the image].",
+        "A <Z> <C> <M> <S> stands <R> a <Z1> <C1> <M1> <S1> [in the image]."
+    ],
+    "constraints":[{"class":"unique_obj_pair_rel", "args":[]}],
+    "type":"obj-relation",
+    "label":"obj-relation",
+    "inputs":2,
+    "references": [
+        "There is a {{<Z> <C> <M> <S>}} <R> a {F{<Z1> <C1> <M1> <S1>}} [in the image].",
+        "The image has a {{<Z> <C> <M> <S>}} <R> a {{<Z1> <C1> <M1> <S1>}}.",
+        "A {{<Z> <C> <M> <S>}} is present <R> a {{<Z1> <C1> <M1> <S1>}} [in the image].",
+        "A {{<Z> <C> <M> <S>}} stands <R> a {{<Z1> <C1> <M1> <S1>}} [in the image]."
+    ]
+}
+]

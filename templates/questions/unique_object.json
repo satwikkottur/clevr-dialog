@@ -1,0 +1,24 @@
+[
+{
+    "name":"Unique Object - Attributes",
+    "text": [
+        "There is [exactly] one <Z> <C> <M> <S> [in the image].",
+        "The image has [exactly] one <Z> <C> <M> <S>.",
+        "No other <Z> <C> <M> <S> except for [exactly] one.",
+        "There is a <Z> <C> <M> <S> [in the image].",
+        "The image has a <Z> <C> <M> <S>.",
+        "A <Z> <C> <M> <S> is present [in the image]."
+    ],
+    "constraints":[{"class":"unique_attr", "args":[]}],
+    "type":"unique-obj",
+    "label":"unique-obj",
+    "references": [
+        "There is [exactly] one {{<Z> <C> <M> <S>}} [in the image].",
+        "The image has [exactly] one {{<Z> <C> <M> <S>}}.",
+        "No other {{<Z> <C> <M> <S>}} except for [exactly] one.",
+        "There is a {{<Z> <C> <M> <S>}} [in the image].",
+        "The image has a {{<Z> <C> <M> <S>}}.",
+        "A {{<Z> <C> <M> <S>}} is present [in the image]."
+    ]
+}
+]
