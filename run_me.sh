@@ -20,6 +20,7 @@ DATA_ROOT='data/clevr/CLEVR_v1.0/'
 #   --dataset_files=${DATA_PARTS} \
 #   --save_path=${DATA_ROOT}"json/new_cap_fix/clevr_train_merge_raw.json"
 
+
 # Step 2: Create lighter version of CLEVR-Dialog datasets.
 # Remove the history/graph annotations and save only dialog text and metainfo.
 # DATA_ROOT="data/clevr/CLEVR_v1.0/json/v3/"
@@ -28,6 +29,7 @@ DATA_ROOT='data/clevr/CLEVR_v1.0/'
 #   python -u util/create_light_dataset.py \
 #     --load_path=${DATA_ROOT}"clevr_"$SPLIT"_raw_70k.json"
 # done 
+
 
 # Step 3: Creating a vdformat version of CLEVR-Dialog datasets.
 # DATA_ROOT="data/clevr/CLEVR_v1.0/json/v3/"
@@ -38,6 +40,7 @@ DATA_ROOT='data/clevr/CLEVR_v1.0/'
 #     --save_path=${DATA_ROOT}"clevr_"$SPLIT"_raw_70k_vdformat.json"
 # done 
 
+
 # Step 4: Split the train set into train and val (first 1000 dialogs)
 # DATA_ROOT="data/clevr/CLEVR_v1.0/json/v3/"
 # echo 'Splitting train into train and val'
@@ -45,6 +48,7 @@ DATA_ROOT='data/clevr/CLEVR_v1.0/'
 #   --load_path=${DATA_ROOT}"clevr_train_raw_70k_vdformat.json" \
 #   --train_save_path=${DATA_ROOT}"clevr_train_split_vdformat.json" \
 #   --val_save_path=${DATA_ROOT}"clevr_val_split_vdformat.json"
+
 
 # Step 5: Extract annotations (coreference and bounding box).
 DATA_ROOT='data/clevr/CLEVR_v1.0/'
@@ -62,6 +66,7 @@ DATA_ROOT='data/clevr/CLEVR_v1.0/'
 #   --bbox_file=${DATA_ROOT}"bboxes/annotations_test.json" \
 #   --template_root="templates/" \
 #   --save_path=${DATA_ROOT}"json/v3/clevr_dialog_annotations_test.json"
+
 
 # Step 6: Visualizing annotations via a html page.
 ROOT="data/clevr/CLEVR_v1.0/"
@@ -82,6 +87,7 @@ DATA_ROOT="data/clevr/CLEVR_v1.0/json/v3/"
 #   --save_path="results/"
 # zip -r results.zip results/
 
+
 # Step 7: Plotting dataset statistics.
 # DATA_ROOT='data/clevr/CLEVR_v1.0/json/v3/'
 # python util/visualize_dataset_stats.py \
@@ -89,6 +95,7 @@ DATA_ROOT="data/clevr/CLEVR_v1.0/json/v3/"
 #   --test_path=${DATA_ROOT}"clevr_test_raw_70k.json"
 #   --train_path=${DATA_ROOT}"clevr_test_raw_70k_light.json" \
 #   --test_path=${DATA_ROOT}"clevr_test_raw_70k_light.json"
+
 
 # Step 8: Create VisDial datamats
 ROOT="data/clevr/CLEVR_v1.0/json/v3/"

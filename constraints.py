@@ -1,13 +1,14 @@
-'''Supporting script to check constraints for caption and question generation.
+"""Supporting script to check constraints for caption and question generation.
 
 Author: Satwik Kottur
-'''
+"""
 
 import copy
 import json
 import random
 import pdb
 import numpy as np
+
 
 with open('metainfo.json', 'r') as file_id:
   meta_info = json.load(file_id)
@@ -26,14 +27,14 @@ apply_group = lambda hist: (len(hist['objects']) >= 2 and hist['mergeable']
 
 
 def caption(scene, templates):
-  '''Constraints for caption generation.
+  """Constraints for caption generation.
 
   Args:
     scene:
     template:
 
   Returns:
-  '''
+  """
 
   caption_hypotheses = {}
 
@@ -264,14 +265,14 @@ def sample_from_hypotheses(caption_hypotheses, scene, cap_templates):
 
 
 def question(scene, dialog, template):
-  '''
+  """
   Inputs:
     scene: The scene so far
     template: which template to use
 
   Output:
     list of object groups
-  '''
+  """
 
   ques_round = len(dialog['graph']['history']) - 1
   graph = dialog['graph']
@@ -920,14 +921,14 @@ def filter_attributes_with_known_counts(graph, known_attrs):
 
 
 def clean_graph_item(graph_item):
-  '''Method to clean up graph item (remove 'required' and 'optional' tags).
+  """Method to clean up graph item (remove 'required' and 'optional' tags).
 
   Args:
     graph_item: Input graph item to be cleaned.
 
   Returns:
     clean_graph_item: Copy of the graph item after cleaning.
-  '''
+  """
 
   clean_graph_item = copy.deepcopy(graph_item)
   if 'optional' in clean_graph_item:
@@ -973,12 +974,12 @@ def get_unique_attribute_objects(graph, uniq_attrs):
 
 
 def sample_optional_tags(optional, sample_probs):
-  '''Sample additional tags depending on given sample probabilities.
+  """Sample additional tags depending on given sample probabilities.
 
   Args:
     optional: List of optional tags to sample from.
     sample_probs: Probabilities of sampling 'n' tags.
-  '''
+  """
 
   sampled = []
   if len(optional) > 0:
