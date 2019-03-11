@@ -7,7 +7,11 @@ import copy
 
 
 def pretty_print_templates(templates, verbosity=1):
-  """
+  """Pretty prints templates.
+
+  Args:
+    templates: Templates to print
+    verbosity: 1 to print name and type of the templates
   """
 
   # Verbosity 1: Name and type.
@@ -20,16 +24,22 @@ def pretty_print_templates(templates, verbosity=1):
 
 
 def pretty_print_scene_objects(scene):
-  """
+  """Pretty prints scene objects.
+
+  Args:
+    scene: Scene graph containing list of objects
   """
 
   for index, ii in enumerate(scene['objects']):
-    print_args = (index, ii['shape'], ii['color'], ii['size'], ii['material']))
+    print_args = (index, ii['shape'], ii['color'], ii['size'], ii['material'])
     print('\t%d : %s-%s-%s-%s' % print_args)
 
 
 def pretty_print_dialogs(dialogs):
-  """
+  """Pretty prints generated dialogs.
+
+  Args:
+    dialogs: Generated dialogs to print
   """
 
   for scene_id, dialog_datum in enumerate(dialogs):
@@ -46,8 +56,11 @@ def merge_update_scene_graph(orig_graph, graph_item):
   """Merges two scene graphs into one.
 
   Args:
+    orig_graph: Original scene graph
+    graph_item: New graph item to add to the scene graph
 
   Returns:
+    graph: Deep copy of the original scene graph after merging
   """
 
   graph = copy.deepcopy(orig_graph)
@@ -112,7 +125,13 @@ def add_object_ids(scenes):
 
 
 def clean_object_attributes(scenes):
-  """
+  """Cleans attributes for objects, keeping only attributes and id.
+
+  Args:
+    scenes: Scene graph to clean
+
+  Returns:
+    scenes: Cleaned up scene graphs inplace
   """
 
   keys = ['shape', 'size', 'material', 'color', 'id']
@@ -124,11 +143,11 @@ def clean_object_attributes(scenes):
 
 
 def pretty_print_corefs(dialog, coref_groups):
-  """Print coreferences for a dialog, higlighting different groups in colors.
+  """Prints coreferences for a dialog, higlighting different groups in colors.
 
   Args:
-
-  Returns:
+    dialog: Generated dialogs to print
+    coref_groups: Coreference groups for dialogs
   """
 
   colorama.init()
@@ -147,7 +166,7 @@ def pretty_print_corefs(dialog, coref_groups):
 
 
 def pretty_print_coref_sentence(sentence, groups, color_map):
-  """Print a sentence containing difference coreference groups.
+  """Prints a sentence containing difference coreference groups.
 
   Args:
     sentence: Text sentence
@@ -188,11 +207,11 @@ def insert_into_sentence(sentence, insertions):
   """Sorts and performs insertions from right.
 
   Args:
-    sentence:
-    insertions:
+    sentence: Sentence to perform insertions into
+    insertions: List of insertions, format: (position, text_insert)
 
   Returns:
-    sentence:
+    sentence: Inplace inserted sentence
   """
 
   insertions = sorted(insertions, key=lambda x: x[0], reverse=True)

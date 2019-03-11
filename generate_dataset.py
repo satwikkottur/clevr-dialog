@@ -4,13 +4,14 @@ Needs access to the following files:
 synonyms: Contains several synonyms for each word in the question/caption.
 caption templates: List of caption templates.
 question templates: List of question templates.
+metainfo: Meta-information related to attributes and values of CLEVR objects.
 
 Usage:
  python -u generate_dataset.py \
    --scene_path="data/scenes/CLEVR_train_scenes.json" \
    --num_beams=100 \
    --num_workers=12 \
-   --save_path="data/clevr_train_raw_70k.json"
+   --save_path="data/clevr_train_raw.json"
 
 Author: Satwik Kottur
 """
@@ -21,22 +22,23 @@ import collections
 import json
 import multiprocessing
 import os
-import pdb
 import random
 import re
 import time
-
 from absl import flags
 from absl import app
 import numpy as np
 from tqdm import tqdm as progressbar
 
-import constraints
 import clevr_utils as utils
+import global_vars as gvars
+import constraints
 
 
-flags.DEFINE_string('synonym_path', 'synonyms.json', 'Path to synonyms file')
-flags.DEFINE_string('metainfo_path', 'metainfo.json',
+FLAGS = flags.FLAGS
+flags.DEFINE_string('synonym_path', 'templates/synonyms.json',
+                    'Path to synonyms file')
+flags.DEFINE_string('metainfo_path', 'templates/metainfo.json',
                     'Path to meta information file')
 flags.DEFINE_string('caption_template_root', 'templates/captions/',
                     'Root to folder with caption templates')
@@ -54,27 +56,7 @@ flags.DEFINE_integer('captions_per_image', 5, 'Number of captions per image')
 flags.DEFINE_integer('num_images', -1,
                      'Number of images to generate dialogs. -1 for all.')
 flags.DEFINE_integer('num_rounds', 10, 'Number of rounds in each dialog')
-FLAGS = flags.FLAGS
 
-
-# Relations.
-relations = {"left": ["left of", "to the left of", "on the left side of"],
-             "right": ["right of", "to the right of", "on the right side of"],
-             "behind": ["behind"],
-             "front": ["in front of"]}
-
-# Independent question templates.
-indep_ques_templates = ['count-all', 'count-other', 'count-attribute',
-                        'exist-other', 'exist-attribute']
-
-tag_map = {'<S>': 'shape', '<M>': 'material', '<Z>': 'size', '<C>': 'color',
-           '<X>': 'count', '<R>': 'relation', '<A>': 'attribute'}
-tag_inv_map = {attribute: tag for tag, attribute in tag_map.items()}
-tag_map['<P>'] = 'relation' # add after the inverse map
-attributes = ['size', 'color', 'material', 'shape']
-
-# Global configs -- sampling 1/2/3 attributes respectively
-probs = [0.70, 0.30, 0.00]
 
 # Number of beams and distribution of question types.
 # Start cutting down beams after 5th round.
@@ -112,7 +94,7 @@ def mapping(tag):
     tag_label: Label for the input tag
   """
 
-  return tag_map[tag.replace('1', '')]
+  return gvars.METAINFO['tag_map'][tag.replace('1', '')]
 
 
 def inv_mapping(attribute, arg_id=0):
@@ -126,7 +108,7 @@ def inv_mapping(attribute, arg_id=0):
     base_tag: The string for the tag
   """
 
-  base_tag = tag_inv_map[attribute]
+  base_tag = gvars.METAINFO['tag_inv_map'][attribute]
   if arg_id > 0:
     base_tag = base_tag[:-1] + str(arg_id) + base_tag[-1]
 
@@ -169,7 +151,8 @@ def replace_attribute(text, tag, obj_group, eliminate=False):
   if mapping(tag) == 'relation':
     # Actual relation tag, else position tag.
     if tag == '<R>':
-      relation_cand = random.choice(relations[obj_group['relation']])
+      relation_list = gvars.METAINFO['relation_phrases'][obj_group['relation']]
+      relation_cand = random.choice(relation_list)
     else:
       relation_cand = obj_group['relation']
 
@@ -262,7 +245,9 @@ def realize_text_and_extract_scene(scene, template, filter_objs):
       if len(tags_to_keep) > 0:
         n_tags_sample = [0, 1, 2]
       else: n_tags_sample = [1, 2, 3]
-      n_sample = np.random.choice(n_tags_sample, 1, p=probs, replace=False)
+      n_sample = np.random.choice(n_tags_sample, 1,
+                                  p=gvars.METAINFO['probabilities'],
+                                  replace=False)
       # lower cap at the length of optional
       n_sample = min(n_sample[0], len(optional_tags))
       if n_sample > 0:
@@ -275,7 +260,7 @@ def realize_text_and_extract_scene(scene, template, filter_objs):
 
     # remove attributes from objects not included in tags_to_keep
     if 'objects' in graph_item:
-      for ii in attributes:
+      for ii in gvars.METAINFO['attributes']:
         if inv_mapping(ii, arg_ind) not in tags_to_keep:
           if ii in graph_item['objects'][arg_ind]:
             del graph_item['objects'][arg_ind][ii]
@@ -357,7 +342,9 @@ def realize_question(dialog, template, filter_objs):
         n_tags_sample = [0, 1, 2]
       else:
         n_tags_sample = [1, 2, 3]
-      n_sample = np.random.choice(n_tags_sample, 1, p=probs, replace=False)
+      n_sample = np.random.choice(n_tags_sample, 1,
+                                  p=gvars.METAINFO['probabilities'],
+                                  replace=False)
       # Lower cap at the length of optional.
       n_sample = min(n_sample[0], len(optional_tags))
       if n_sample > 0:
@@ -370,7 +357,7 @@ def realize_question(dialog, template, filter_objs):
 
   # Record info and merge scene graphs.
   dialog_datum = {'question': text_sample, 'answer': arg_sample['answer'],
-                  'template': template['label'], }
+                  'template': template['label']}
   dialog['template_info'].append(template.copy())
   del dialog['template_info'][-1]['text']
   dialog['template_info'][-1]['index'] = text_sample_index
@@ -461,7 +448,7 @@ def skip_and_replace_phrases(text):
   text = re.sub(' +', ' ', text)
   # Search for synonyms, replace at uniformly random.
   text = text.lower()
-  for key, values in SYNONYM_KEYS:
+  for key, values in gvars.METAINFO['synonym_keys']:
     if key in text:
       text = text.replace(key, random.choice(values))
   return text
@@ -642,7 +629,8 @@ def generate_dialog_bfs(scene, cap_templates, ques_templates):
 
           labels = [ii['label'] for ii in dialog['template_info'][1:]]
           for label in labels:
-            if label in indep_ques_templates: n_types['indep'] += 1
+            if label in gvars.METAINFO['independent_questions']:
+              n_types['indep'] += 1
 
             label_type = label.split('-')[0]
             n_types[label_type] += 1
@@ -743,13 +731,12 @@ def identify_coref_chains(dialog):
 
   for r_id, datum in enumerate(dialog['dialog']):
     label = datum['template']
-    if label in indep_ques_templates:
+    if label in gvars.METAINFO['independent_questions']:
       dialog['graph']['history'][r_id + 1]['dependence'] = None
       continue
 
-    if label == 'exist-attribute-group' or \
-        label == 'count-attribute-group' or \
-          label == 'count-all-group':
+    if (label == 'exist-attribute-group' or label == 'count-attribute-group' or
+        label == 'count-all-group'):
       dialog['graph']['history'][r_id + 1]['dependence'] = r_id - 1
       continue
 
@@ -761,9 +748,9 @@ def identify_coref_chains(dialog):
       # Go over previous history.
       cur_history  = dialog['graph']['history'][r_id + 1]
       assert 'focus_id' in cur_history and 'focus_desc' in cur_history,\
-       'More focus objects than one, no focus objects!'
+        'More focus objects than one, no focus objects!'
       focus_id = cur_history['focus_id']
-      for attr in attributes:
+      for attr in gvars.METAINFO['attributes']:
         if attr in cur_history['focus_desc']: break
 
       history = dialog['graph']['history'][:r_id + 1]
@@ -787,8 +774,15 @@ def main(unused_argv):
   with open(FLAGS.synonym_path, 'r') as file_id:
     synonyms = json.load(file_id)
   sorter = lambda x: len(x[0].split(' '))
-  global SYNONYM_KEYS
-  SYNONYM_KEYS = sorted(synonyms.items(), key=sorter, reverse=True)
+
+  # Read the metainformation file.
+  with open(FLAGS.metainfo_path, 'r') as file_id:
+    gvars.METAINFO = json.load(file_id)
+  tag_inv_map = {attr: tag for tag, attr in gvars.METAINFO['tag_map'].items()
+                 if tag != '<P>'}
+  gvars.METAINFO['tag_inv_map'] = tag_inv_map
+  gvars.METAINFO['synonym_keys'] = sorted(synonyms.items(),
+                                          key=sorter, reverse=True)
 
   # Add ids to objects.
   scenes = utils.add_object_ids(scenes)
@@ -832,37 +826,39 @@ def main(unused_argv):
     scenes_subset = scenes['scenes'][0: FLAGS.num_images]
 
   # BFS for each scene.
-  # Single thread version.
-  # dialogs = []
-  # for index, scene in enumerate(scenes_subset):
-  #   cur_time = time.strftime('%a-%d%b%y-%X', time.gmtime())
-  #   print('Generating [ %s ] [ Worker: %d, Progress: %d/%d Scene:  %d ]' %\
-  #         (cur_time, 0, index, len(scenes_subset), scene['image_index']))
-  #   gen_dialog = generate_dialog_bfs(scene, cap_templates, ques_templates)
-  #   dialogs.append(gen_dialog)
+  if FLAGS.num_workers == 1:
+    # Single thread version.
+    dialogs = []
+    for index, scene in enumerate(scenes_subset):
+      cur_time = time.strftime('%a-%d%b%y-%X', time.gmtime())
+      print('Generating [ %s ] [ Worker: %d, Progress: %d/%d Scene:  %d ]' %\
+            (cur_time, 0, index, len(scenes_subset), scene['image_index']))
+      gen_dialog = generate_dialog_bfs(scene, cap_templates, ques_templates)
+      dialogs.append(gen_dialog)
 
-  # Multithread version.
-  output_q = multiprocessing.Queue()
-  jobs = []
-  for worker_id in range(FLAGS.num_workers):
-    allotment = scenes_subset[worker_id::FLAGS.num_workers]
-    inputs = (allotment, cap_templates, ques_templates)
-    inputs += (worker_id, output_q)
+  else:
+    # Multithread version.
+    output_q = multiprocessing.Queue()
+    jobs = []
+    for worker_id in range(FLAGS.num_workers):
+      allotment = scenes_subset[worker_id::FLAGS.num_workers]
+      inputs = (allotment, cap_templates, ques_templates)
+      inputs += (worker_id, output_q)
 
-    process = multiprocessing.Process(target=worker, args=inputs)
-    jobs.append(process)
-    process.start()
+      process = multiprocessing.Process(target=worker, args=inputs)
+      jobs.append(process)
+      process.start()
 
-  # Wait for all the jobs to finish and collect the output.
-  final_results = {}
-  for _ in jobs:
-    final_results.update(output_q.get())
-  for job in jobs:
-    job.join()
+    # Wait for all the jobs to finish and collect the output.
+    final_results = {}
+    for _ in jobs:
+      final_results.update(output_q.get())
+    for job in jobs:
+      job.join()
 
-  # Flatten and sort.
-  final_results = [jj for _, ii in final_results.items() for jj in ii]
-  dialogs = sorted(final_results, key=lambda x: x['image_index'])
+    # Flatten and sort.
+    final_results = [jj for _, ii in final_results.items() for jj in ii]
+    dialogs = sorted(final_results, key=lambda x: x['image_index'])
   # utils.pretty_print_dialogs(dialogs)
 
   # Save the dialogs.
@@ -872,4 +868,5 @@ def main(unused_argv):
 
 
 if __name__ == '__main__':
+  gvars.initialize()
   app.run(main)

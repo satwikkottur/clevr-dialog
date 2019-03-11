@@ -1,0 +1,14 @@
+{
+  "sphere": ["sphere", "ball", "round thing"],
+  "cube": ["cube", "block"],
+  "large": ["large", "big"],
+  "small": ["small", "tiny"],
+  "metal": ["metallic", "metal", "shiny"],
+  "rubber": ["rubber", "matte"],
+  "center": ["center", "middle"],
+  "image": ["image", "scene", "picture", "view"],
+  "right extreme": ["right extreme", "far right"],
+  "left extreme": ["left extreme", "far left"],
+  "several": ["several", "many", "multiple", "a lot of", "a number of"],
+  "the earlier": ["that", "the earlier", "the aforementioned", "the above", "the previous"]
+}
