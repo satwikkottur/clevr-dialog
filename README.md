@@ -5,7 +5,20 @@ This repository contains code for the paper:
 **CLEVR-Dialog: A Diagnostic Dataset for Multi-Round Reasoning in Visual Dialog**  
 [Satwik Kottur][2], [José M. F. Moura][3], [Devi Parikh][4], [Dhruv Batra][5], [Marcus Rohrbach][6]  
 [[PDF][7]] [[ArXiv][1]] [[Code][8]]  
+**Oral Presentation**   
 _Conference of the North American Chapter of the Association for Computational Linguistics (NAACL), 2019_
+
+If you find this code useful, consider citing our work:
+
+```
+@inproceedings{Kottur2019CLEVRDialog,
+	title  = {CLEVR-Dialog: A Diagnostic Dataset for Multi-Round Reasoning in Visual Dialog},  
+	author = {Kottur, Satwik and Moura, Jos\'e M. F. and Parikh, Devi and   
+	          Batra, Dhruv and Rohrbach, Marcus},  
+	journal = {arXiv preprint arXiv:1903.03166},
+	year   = {2019}  
+}
+```
 
 ### Abstract
 Visual Dialog is a multimodal task of answering a sequence of questions 
@@ -36,19 +49,8 @@ future models for visual dialog.
 
 
 [![CorefNMN](https://i.imgur.com/mwC1mVC.png)][1]
-This repository generates a version of our diagnostic dataset **CLEVR-Dialog**.
+This repository generates a version of our diagnostic dataset **CLEVR-Dialog**
 (figure above).
-
-
-If you find this code useful, consider citing our work:
-
-```
-@inproceedings{Kottur2019CLEVRDialog,
-	title={CLEVR-Dialog: A Diagnostic Dataset for Multi-Round Reasoning in Visual Dialog},
-	author={Satwik Kottur and Jos'e M. F. Moura and Devi Parikh and Dhruv Batra and Marcus Rohrbach},
-	year={2019}
-}
-```
 
 
 ## Setup
@@ -65,7 +67,6 @@ pip install numpy
 ### Directory Structure
 The repository contains the following files:
 
-
 * `generate_dataset.py`: Main script to generate the dataset
 * `constraints.py`: List of constraints for caption and question generation
 * `clevr_utils.py`: Utility functions to dialog generation
@@ -76,6 +77,12 @@ In addition, the dataset generation code requires following files:
 * `templates/synonyms.json`: Compilation of words and their synonyms
 * `templates/metainfo.json`: Contains information about attributes and their values for CLEVR objects
 * `templates/captions` and `templates/questions`: Caption and question templates respectively.
+
+### CLEVR Images
+Our dataset is built on [CLEVR][10] images, which can be downloaded from [here][11].
+Extract the images and scene JSON files in `data/` folder.
+We will only use CLEVR `train` and `val` splits as scene JSON files are unavailable for `test` split.
+
 
 ## Generating CLEVR-Dialog Dataset
 
@@ -124,13 +131,13 @@ The generated JSON contains a list of dialogs on CLEVR images with following fie
 	 |--`history`: List of incremental scene graph information conveyed in each round	
 	 
 	 
-The dataset used in the paper will be released soon!
+The dataset used in the paper can be downloaded here: [train][13] and [val][12] splits.
 
 ## Contributors
 
 * [Satwik Kottur][2]
 
-For any questions, please feel free to contact the above contributors.
+For any questions, please feel free to contact the above contributor(s).
 
 ## License
 
@@ -147,3 +154,7 @@ root directory of this source tree ([here][9]).
 [7]:https://arxiv.org/abs/1903.03166.pdf
 [8]:https://github.com/satwikkottur/clevr-dialog
 [9]:https://github.com/satwikkottur/clevr-dialog/blob/master/LICENSE
+[10]:https://cs.stanford.edu/people/jcjohns/clevr/
+[11]:https://s3-us-west-1.amazonaws.com/clevr/CLEVR_v1.0.zip
+[12]:https://drive.google.com/file/d/1efCk917eT_vgDO__OS6cKZkC8stT5OL7/view?usp=sharing
+[13]:https://drive.google.com/file/d/1u6YABdNSfBrnV7CXVp5cfOSstGK0gyaE/view?usp=sharing
