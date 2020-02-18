@@ -155,6 +155,6 @@ root directory of this source tree ([here][9]).
 [8]:https://github.com/satwikkottur/clevr-dialog
 [9]:https://github.com/satwikkottur/clevr-dialog/blob/master/LICENSE
 [10]:https://cs.stanford.edu/people/jcjohns/clevr/
-[11]:https://s3-us-west-1.amazonaws.com/clevr/CLEVR_v1.0.zip
+[11]:https://dl.fbaipublicfiles.com/clevr/CLEVR_v1.0.zip
 [12]:https://drive.google.com/file/d/1efCk917eT_vgDO__OS6cKZkC8stT5OL7/view?usp=sharing
 [13]:https://drive.google.com/file/d/1u6YABdNSfBrnV7CXVp5cfOSstGK0gyaE/view?usp=sharing
